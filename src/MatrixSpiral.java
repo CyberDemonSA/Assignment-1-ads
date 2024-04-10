@@ -39,16 +39,24 @@ public class MatrixSpiral {
         }
     }
 
+    public static void printArray(int[][] arr, int row, int col) {
+        if (row == arr.length) {
+            return;
+        } else if (col == arr[row].length) {
+            System.out.println(); // Переход на новую строку
+            printArray(arr, row + 1, 0); // Печать следующей строки, начиная с первого элемента
+        } else {
+            System.out.print(arr[row][col] + " "); // Вывод элемента массива и пробела
+            printArray(arr, row, col + 1); // Переход к следующему элементу в текущей строке
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int[][] matrix = new int[n][n];
 
         fillSpiral(matrix, n, 1, 0, 0, "right");
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(matrix[i][j] + "\t");}
-            System.out.println();}
+        printArray(matrix, 0, 0);
     }
 }
