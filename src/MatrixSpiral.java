@@ -1,39 +1,54 @@
+import java.util.Scanner;
+
 public class MatrixSpiral {
 
-    public static void printSpiral(int[][] matrix, int num, int row, int col, int n) {
-        if (num > n * n) {
-            return;
-        }
+    public static void fillSpiral(int[][] matrix, int n, int num, int row, int col, String direction) {
+        if (num > n * n) {return;}
 
-        for (int i = col; i < n; i++) {
-            matrix[row][i] = num++;
-        }
+        matrix[row][col] = num;
 
-        for (int i = row + 1; i < n; i++) {
-            matrix[i][n - 1] = num++;
+        switch (direction) {
+            case "right":
+                if (col + 1 < n && matrix[row][col + 1] == 0) {
+                    fillSpiral(matrix, n, num + 1, row, col + 1, "right");
+                } else {
+                    fillSpiral(matrix, n, num + 1, row + 1, col, "down");
+                }
+                break;
+            case "down":
+                if (row + 1 < n && matrix[row + 1][col] == 0) {
+                    fillSpiral(matrix, n, num + 1, row + 1, col, "down");
+                } else {
+                    fillSpiral(matrix, n, num + 1, row, col - 1, "left");
+                }
+                break;
+            case "left":
+                if (col - 1 >= 0 && matrix[row][col - 1] == 0) {
+                    fillSpiral(matrix, n, num + 1, row, col - 1, "left");
+                } else {
+                    fillSpiral(matrix, n, num + 1, row - 1, col, "up");
+                }
+                break;
+            case "up":
+                if (row - 1 >= 0 && matrix[row - 1][col] == 0) {
+                    fillSpiral(matrix, n, num + 1, row - 1, col, "up");
+                } else {
+                    fillSpiral(matrix, n, num + 1, row, col + 1, "right");
+                }
+                break;
         }
-
-        for (int i = n - 2; i >= col; i--) {
-            matrix[n - 1][i] = num++;
-        }
-
-        for (int i = n - 2; i > row; i--) {
-            matrix[i][col] = num++;
-        }
-
-        printSpiral(matrix, num, row + 1, col + 1, n - 1);
     }
 
     public static void main(String[] args) {
-        int n = 5;
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
         int[][] matrix = new int[n][n];
-        printSpiral(matrix, 1, 0, 0, n);
+
+        fillSpiral(matrix, n, 1, 0, 0, "right");
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                System.out.print(matrix[i][j] + "\t");
-            }
-            System.out.println();
-        }
+                System.out.print(matrix[i][j] + "\t");}
+            System.out.println();}
     }
 }
