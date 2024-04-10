@@ -43,11 +43,11 @@ public class MatrixSpiral {
         if (row == arr.length) {
             return;
         } else if (col == arr[row].length) {
-            System.out.println(); // Переход на новую строку
-            printArray(arr, row + 1, 0); // Печать следующей строки, начиная с первого элемента
+            System.out.println();
+            printArray(arr, row + 1, 0);
         } else {
-            System.out.print(arr[row][col] + " "); // Вывод элемента массива и пробела
-            printArray(arr, row, col + 1); // Переход к следующему элементу в текущей строке
+            System.out.print(arr[row][col] + " ");
+            printArray(arr, row, col + 1);
         }
     }
 
